@@ -67,66 +67,7 @@ export default function Hero() {
           <div className="absolute inset-0 bg-black/30" />
         </div>
 
-        {/* Loader Box - Same style as reference */}
-        <div className="relative z-10 text-center px-8 max-w-3xl w-full">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: 'easeOut' }}
-            className="loader-box"
-          >
-            {/* Line 1 */}
-            <div className="overflow-hidden mb-2">
-              <motion.div
-                className="text-white text-lg md:text-2xl font-light tracking-wide"
-                initial={{ y: '100%' }}
-                animate={{ y: 0 }}
-                transition={{ duration: 0.8, delay: 0.2, ease: 'easeOut' }}
-              >
-                Redefining Luxury Living
-              </motion.div>
-            </div>
-            
-            {/* Line 2 */}
-            <div className="overflow-hidden mb-8">
-              <motion.div
-                className="text-[#C5A059] text-xl md:text-3xl font-semibold tracking-wide"
-                initial={{ y: '100%' }}
-                animate={{ y: 0 }}
-                transition={{ duration: 0.8, delay: 0.4, ease: 'easeOut' }}
-              >
-                IVIGIL ESTATES
-              </motion.div>
-            </div>
 
-            {/* Loader Key Animation */}
-            <div className="flex justify-center">
-              <motion.div
-                className="w-16 h-1 bg-[#C5A059] rounded-full"
-                initial={{ scaleX: 0 }}
-                animate={{ scaleX: 1 }}
-                transition={{ 
-                  duration: 0.6, 
-                  delay: 0.8,
-                  ease: 'easeInOut'
-                }}
-                style={{ transformOrigin: 'center' }}
-              />
-            </div>
-
-            {/* Progress indicator */}
-            <motion.div 
-              className="mt-6 flex justify-center"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 1 }}
-            >
-              <span className="text-white/40 text-[10px] uppercase tracking-[0.3em]">
-                {Math.round((currentFrame / TOTAL_FRAMES) * 100)}%
-              </span>
-            </motion.div>
-          </motion.div>
-        </div>
 
         {/* Skip Button */}
         <motion.button
@@ -145,12 +86,7 @@ export default function Hero() {
   return (
     <section className="relative h-screen w-full overflow-hidden flex items-center justify-center bg-[#0A0A0A]">
       {/* Hero Image */}
-      <motion.div 
-        initial={{ opacity: 0, scale: 1.1 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 1.5, ease: 'easeOut' }}
-        className="absolute inset-0 z-0"
-      >
+      <div className="absolute inset-0 z-0">
         <Image
           src={`/realestate/ezgif-frame-${String(TOTAL_FRAMES).padStart(3, '0')}.jpg`}
           alt="IVIGIL ESTATES"
@@ -160,43 +96,78 @@ export default function Hero() {
           unoptimized
         />
         <div className="absolute inset-0 bg-gradient-to-b from-[#0A0A0A]/30 via-transparent to-[#0A0A0A]" />
-      </motion.div>
+      </div>
 
       {/* Content */}
-      <motion.div 
-        initial={{ opacity: 0, y: 50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1, delay: 0.5, ease: 'easeOut' }}
-        className="relative z-10 text-center px-6 max-w-5xl"
-      >
-        <span className="text-[#C5A059] text-xs md:text-sm uppercase tracking-[0.5em] mb-6 block">
-          Redefining Luxury Living
-        </span>
-        <h1 className="text-5xl md:text-8xl font-serif leading-tight mb-8">
-          The Art of <br />
-          <span className="italic">Exquisite</span> Estates
-        </h1>
-        <p className="text-white/60 text-sm md:text-lg max-w-2xl mx-auto mb-12 font-light tracking-wide leading-relaxed">
-          Experience unparalleled elegance and sophistication with IVIGIL ESTATES. 
-          We curate the world&rsquo;s most prestigious properties for those who demand nothing but the best.
-        </p>
-        <div className="flex flex-col md:flex-row items-center justify-center gap-6">
+      <div className="relative z-10 text-center px-6 max-w-5xl flex flex-col items-center">
+        <div className="overflow-hidden mb-6">
+          <motion.span 
+            initial={{ y: '100%' }}
+            animate={{ y: 0 }}
+            transition={{ duration: 0.8, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+            className="text-[#C5A059] text-xs md:text-sm uppercase tracking-[0.5em] block font-sans"
+          >
+            Redefining Luxury Living
+          </motion.span>
+        </div>
+
+        <div className="mb-8">
+          <div className="overflow-hidden pb-2">
+            <motion.h1 
+              initial={{ y: '100%' }}
+              animate={{ y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+              className="text-5xl md:text-8xl font-serif leading-tight"
+            >
+              The Art of
+            </motion.h1>
+          </div>
+          <div className="overflow-hidden pb-4">
+            <motion.h1 
+              initial={{ y: '100%' }}
+              animate={{ y: 0 }}
+              transition={{ duration: 0.8, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+              className="text-5xl md:text-8xl font-serif leading-tight italic"
+            >
+              Exquisite Estates
+            </motion.h1>
+          </div>
+        </div>
+
+        <div className="overflow-hidden mb-12 max-w-2xl mx-auto p-1">
+          <motion.p 
+            initial={{ y: '100%', opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
+            className="text-white/60 text-sm md:text-lg font-light tracking-wide leading-relaxed font-sans"
+          >
+            Experience unparalleled elegance and sophistication with IVIGIL ESTATES. 
+            We curate the world&rsquo;s most prestigious properties for those who demand nothing but the best.
+          </motion.p>
+        </div>
+
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.5, ease: 'easeOut' }}
+          className="flex flex-col md:flex-row items-center justify-center gap-6"
+        >
           <button 
             type="button"
             suppressHydrationWarning
-            className="px-10 py-4 bg-[#C5A059] text-white text-xs uppercase tracking-[0.3em] font-medium hover:bg-[#d94a1f] transition-all duration-500 w-full md:w-auto"
+            className="px-10 py-4 bg-[#C5A059] text-[#0A0A0A] text-xs uppercase tracking-[0.3em] font-bold hover:bg-white transition-all duration-500 w-full md:w-auto font-sans"
           >
             View Collection
           </button>
           <button 
             type="button"
             suppressHydrationWarning
-            className="px-10 py-4 border border-white/20 text-white text-xs uppercase tracking-[0.3em] font-medium hover:border-[#C5A059] hover:text-[#C5A059] transition-all duration-500 w-full md:w-auto"
+            className="px-10 py-4 border border-[#C5A059]/40 text-white text-xs uppercase tracking-[0.3em] font-bold hover:border-white transition-all duration-500 w-full md:w-auto font-sans"
           >
             Our Story
           </button>
-        </div>
-      </motion.div>
+        </motion.div>
+      </div>
 
       {/* Scroll Indicator */}
       <motion.div

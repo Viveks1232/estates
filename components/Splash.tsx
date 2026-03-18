@@ -117,12 +117,7 @@ export default function Splash() {
             className={`w-full h-full object-cover transition-opacity duration-500 ${imagesLoaded ? 'opacity-100' : 'opacity-0'}`}
           />
           
-          {/* Optional minimal loading state if images take time */}
-          {!imagesLoaded && (
-            <div className="absolute inset-0 flex items-center justify-center">
-               <div className="w-12 h-12 border border-[#C5A059]/20 border-t-[#C5A059] rounded-full animate-spin"></div>
-            </div>
-          )}
+
         </motion.div>
       )}
     </AnimatePresence>
