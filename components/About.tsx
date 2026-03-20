@@ -1,20 +1,83 @@
 'use client';
 
-import { motion } from 'motion/react';
+import { useEffect, useRef } from 'react';
 import Image from 'next/image';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+if (typeof window !== 'undefined') {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
 export default function About() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const imageRef = useRef<HTMLDivElement>(null);
+  const textRef = useRef<HTMLDivElement>(null);
+  const badgeRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      // Parallax effect for the image
+      gsap.fromTo(imageRef.current,
+        { y: 100, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 1.5,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: containerRef.current,
+            start: 'top 80%',
+            end: 'center center',
+            scrub: 1,
+          }
+        }
+      );
+
+      // Staggered text reveal
+      if (textRef.current) {
+        const textElements = textRef.current.children;
+        gsap.fromTo(textElements,
+          { x: 50, opacity: 0 },
+          {
+            x: 0,
+            opacity: 1,
+            duration: 1,
+            stagger: 0.15,
+            ease: 'power2.out',
+            scrollTrigger: {
+              trigger: textRef.current,
+              start: 'top 85%',
+            }
+          }
+        );
+      }
+
+      // Badge pop-in
+      gsap.fromTo(badgeRef.current,
+        { scale: 0, rotation: -45, opacity: 0 },
+        {
+          scale: 1,
+          rotation: 0,
+          opacity: 1,
+          duration: 1.2,
+          ease: 'back.out(1.5)',
+          scrollTrigger: {
+            trigger: imageRef.current,
+            start: 'center 80%',
+          }
+        }
+      );
+    }, containerRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <section id="about" className="py-24 px-6 bg-[#0F0F0F]">
+    <section id="about" className="py-24 px-6 bg-[#0F0F0F] overflow-hidden" ref={containerRef}>
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
-        <motion.div
-          initial={{ opacity: 0, x: -50 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          transition={{ duration: 1 }}
-          viewport={{ once: true }}
-          className="relative"
-        >
-          <div className="relative aspect-[4/5] w-full max-w-md mx-auto lg:mx-0">
+        <div className="relative">
+          <div ref={imageRef} className="relative aspect-[4/5] w-full max-w-md mx-auto lg:mx-0">
             <Image
               src="https://picsum.photos/seed/luxury-interior/800/1000"
               alt="Luxury Interior"
@@ -23,23 +86,18 @@ export default function About() {
               referrerPolicy="no-referrer"
             />
             <div className="absolute -top-10 -left-10 w-full h-full border border-[#C5A059]/30 -z-0 hidden md:block" />
-            <div className="absolute -bottom-10 -right-10 w-40 h-40 bg-[#C5A059] flex items-center justify-center z-20 hidden md:flex">
+            <div ref={badgeRef} className="absolute -bottom-10 -right-10 w-40 h-40 bg-[#C5A059] flex items-center justify-center z-20 hidden md:flex">
               <div className="text-center text-black">
                 <span className="block text-4xl font-serif font-bold">15+</span>
                 <span className="text-[10px] uppercase tracking-widest font-bold">Years of Excellence</span>
               </div>
             </div>
           </div>
-        </motion.div>
+        </div>
 
-        <motion.div
-          initial={{ opacity: 0, x: 50 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          transition={{ duration: 1 }}
-          viewport={{ once: true }}
-        >
+        <div ref={textRef}>
           <span className="text-[#C5A059] text-xs uppercase tracking-[0.4em] mb-6 block">Our Legacy</span>
-          <h2 className="text-4xl md:text-6xl font-serif leading-tight mb-8">
+          <h2 className="text-4xl md:text-6xl font-serif leading-tight mb-8 text-white">
             Crafting the Future of <br />
             <span className="italic">Luxury</span> Real Estate
           </h2>
@@ -65,7 +123,7 @@ export default function About() {
           >
             Learn More About Us
           </button>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

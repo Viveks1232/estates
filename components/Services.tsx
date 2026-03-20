@@ -1,7 +1,13 @@
 'use client';
 
-import { motion } from 'motion/react';
+import { useEffect, useRef } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Shield, TrendingUp, Key, Globe } from 'lucide-react';
+
+if (typeof window !== 'undefined') {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
 const services = [
   {
@@ -27,32 +33,57 @@ const services = [
 ];
 
 export default function Services() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.fromTo(cardsRef.current,
+        { y: 100, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 1.2,
+          stagger: 0.2,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: containerRef.current,
+            start: 'top 80%',
+          }
+        }
+      );
+    }, containerRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <section id="services" className="py-24 px-6 bg-[#0A0A0A]">
+    <section id="services" className="py-24 px-6 bg-[#0A0A0A]" ref={containerRef}>
       <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-20">
-          <span className="text-[#C5A059] text-xs uppercase tracking-[0.4em] mb-4 block">Our Expertise</span>
-          <h2 className="text-4xl md:text-6xl font-serif">Bespoke Services</h2>
+        <div className="text-center mb-20 relative">
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 bg-[#C5A059]/10 blur-[50px] rounded-full pointer-events-none" />
+          <span className="text-[#C5A059] text-xs uppercase tracking-[0.4em] mb-4 block relative z-10">Our Expertise</span>
+          <h2 className="text-4xl md:text-6xl font-serif relative z-10">Bespoke Services</h2>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           {services.map((service, index) => (
-            <motion.div
+            <div
               key={service.title}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.1, duration: 0.8 }}
-              viewport={{ once: true }}
-              className="p-10 border border-white/5 hover:border-[#C5A059]/30 transition-all duration-500 group bg-[#0F0F0F]"
+              ref={(el) => { cardsRef.current[index] = el; }}
+              className="p-10 border border-white/5 hover:border-[#C5A059]/30 transition-all duration-500 group bg-[#0F0F0F] relative overflow-hidden"
             >
-              <div className="text-[#C5A059] mb-8 group-hover:scale-110 transition-transform duration-500">
-                {service.icon}
+              <div className="absolute inset-0 bg-gradient-to-br from-[#C5A059]/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className="relative z-10">
+                <div className="text-[#C5A059] mb-8 group-hover:scale-110 group-hover:drop-shadow-[0_0_8px_rgba(197,160,89,0.5)] transition-all duration-500">
+                  {service.icon}
+                </div>
+                <h3 className="text-xl font-serif mb-4 group-hover:text-[#C5A059] transition-colors">{service.title}</h3>
+                <p className="text-white/40 text-sm leading-relaxed font-light">
+                  {service.description}
+                </p>
               </div>
-              <h3 className="text-xl font-serif mb-4 group-hover:text-[#C5A059] transition-colors">{service.title}</h3>
-              <p className="text-white/40 text-sm leading-relaxed font-light">
-                {service.description}
-              </p>
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>
