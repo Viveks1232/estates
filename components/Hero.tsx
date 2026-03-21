@@ -24,7 +24,7 @@ export default function Hero() {
   const contentRef = useRef<HTMLDivElement>(null);
 
   const heroImages = [
-    `/realestate/ezgif-frame-${String(TOTAL_FRAMES).padStart(3, '0')}.jpg`,
+    '/hero-custom.jpg',
     '/realestate/ezgif-frame-001.jpg',
     '/realestate/ezgif-frame-045.jpg',
   ];

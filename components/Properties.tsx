@@ -614,7 +614,14 @@ export default function Properties() {
                   </div>
 
 
-                  <button className="w-full flex items-center justify-between px-8 py-6 bg-white text-black hover:bg-[#C5A059] hover:text-white transition-all duration-500 group/btn">
+                  <button 
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      const msg = encodeURIComponent(`Hi, I am interested in viewing the property: ${selectedProperty.title} in ${selectedProperty.location}. Please provide more details.`);
+                      window.open(`https://wa.me/919876543210?text=${msg}`, '_blank');
+                    }}
+                    className="w-full flex items-center justify-between px-8 py-6 bg-white text-black hover:bg-[#C5A059] hover:text-white transition-all duration-500 group/btn"
+                  >
                     <span className="text-xs uppercase tracking-[0.4em] font-bold">Schedule A Viewing</span>
                     <ArrowRight size={20} className="group-hover/btn:translate-x-2 transition-transform duration-300" />
                   </button>
