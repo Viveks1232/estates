@@ -212,46 +212,97 @@ export default function Properties() {
           </div>
         </div>
 
-        <div className="mb-8">
-          <div className="flex flex-col md:flex-row gap-4">
-            <div className="relative flex-1">
-              <Search size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-white/30" />
-              <input
-                type="text"
-                placeholder="Search by city, location, or property name..."
-                value={searchQuery}
-                onChange={(e) => { setSearchQuery(e.target.value); setVisibleCount(ITEMS_PER_PAGE); }}
-                className="w-full pl-11 pr-4 py-3 bg-white/5 border border-white/10 text-white placeholder-white/30 text-[11px] uppercase tracking-wider focus:border-[#C5A059] focus:outline-none transition-colors"
-              />
-              {searchQuery && (
-                <button
-                  onClick={() => { setSearchQuery(''); setVisibleCount(ITEMS_PER_PAGE); }}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 text-white/30 hover:text-white"
+        <div className="w-full mb-16">
+          <div className="bg-[#111] border border-white/10 rounded-xl overflow-hidden shadow-2xl">
+            {/* Tabs */}
+            <div className="flex border-b border-white/10">
+              <button className="flex-1 py-4 text-center font-bold text-[10px] uppercase tracking-widest bg-[#C5A059] text-black">
+                Residential
+              </button>
+              <button className="flex-1 py-4 text-center font-bold text-[10px] uppercase tracking-widest bg-transparent text-white/50 hover:text-white transition-colors">
+                Commercial
+              </button>
+            </div>
+            
+            <div className="p-6 md:p-10">
+              <h3 className="text-white text-xl md:text-2xl font-serif mb-8 text-center">Search Residential property in India</h3>
+              
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+                {/* Row 1 */}
+                <select className="w-full p-4 bg-white/5 border border-white/10 rounded text-white text-xs uppercase tracking-wider focus:outline-none focus:border-[#C5A059] appearance-none cursor-pointer">
+                  <option value="" className="bg-[#111]">Purpose</option>
+                  <option value="buy" className="bg-[#111]">Buy</option>
+                  <option value="rent" className="bg-[#111]">Rent</option>
+                </select>
+                <select className="w-full p-4 bg-white/5 border border-white/10 rounded text-white text-xs uppercase tracking-wider focus:outline-none focus:border-[#C5A059] appearance-none cursor-pointer">
+                  <option value="" className="bg-[#111]">Property Type</option>
+                  <option value="flat" className="bg-[#111]">Flat / Apartment</option>
+                  <option value="villa" className="bg-[#111]">Villa</option>
+                </select>
+                <select className="w-full p-4 bg-white/5 border border-white/10 rounded text-white text-xs uppercase tracking-wider focus:outline-none focus:border-[#C5A059] appearance-none cursor-pointer">
+                  <option value="" className="bg-[#111]">Select Budget</option>
+                  <option value="low" className="bg-[#111]">Below 50L</option>
+                  <option value="med" className="bg-[#111]">50L - 2Cr</option>
+                  <option value="high" className="bg-[#111]">Above 2Cr</option>
+                </select>
+                <select className="w-full p-4 bg-white/5 border border-white/10 rounded text-white text-xs uppercase tracking-wider focus:outline-none focus:border-[#C5A059] appearance-none cursor-pointer">
+                  <option value="" className="bg-[#111]">All State</option>
+                  <option value="delhi" className="bg-[#111]">Delhi NCR</option>
+                  <option value="maharashtra" className="bg-[#111]">Maharashtra</option>
+                  <option value="karnataka" className="bg-[#111]">Karnataka</option>
+                </select>
+                
+                {/* Row 2 */}
+                <select className="w-full p-4 bg-white/5 border border-white/10 rounded text-white text-xs uppercase tracking-wider focus:outline-none focus:border-[#C5A059] appearance-none cursor-pointer">
+                  <option value="" className="bg-[#111]">Select Facing</option>
+                  <option value="east" className="bg-[#111]">East</option>
+                  <option value="north" className="bg-[#111]">North</option>
+                </select>
+                <select className="w-full p-4 bg-white/5 border border-white/10 rounded text-white text-xs uppercase tracking-wider focus:outline-none focus:border-[#C5A059] appearance-none cursor-pointer">
+                  <option value="" className="bg-[#111]">Bedrooms</option>
+                  <option value="1" className="bg-[#111]">1 BHK</option>
+                  <option value="2" className="bg-[#111]">2 BHK</option>
+                  <option value="3" className="bg-[#111]">3+ BHK</option>
+                </select>
+                <div className="relative">
+                  <input
+                    type="text"
+                    placeholder="Locations"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="w-full p-4 bg-white/5 border border-white/10 rounded text-white text-xs placeholder:text-white/40 uppercase tracking-wider focus:outline-none focus:border-[#C5A059]"
+                  />
+                  <Search size={14} className="absolute right-4 top-1/2 -translate-y-1/2 text-white/40" />
+                </div>
+                <select className="w-full p-4 bg-white/5 border border-white/10 rounded text-white text-xs uppercase tracking-wider focus:outline-none focus:border-[#C5A059] appearance-none cursor-pointer">
+                  <option value="" className="bg-[#111]">Posted By</option>
+                  <option value="owner" className="bg-[#111]">Owner</option>
+                  <option value="builder" className="bg-[#111]">Builder</option>
+                  <option value="agent" className="bg-[#111]">Agent</option>
+                </select>
+              </div>
+
+              <div className="mt-8 flex justify-center">
+                <button 
+                  className="bg-[#C5A059] text-black px-12 py-4 uppercase tracking-[0.3em] text-[10px] font-bold hover:bg-white transition-colors duration-300"
+                  onClick={() => setVisibleCount(ITEMS_PER_PAGE)}
                 >
-                  <X size={14} />
+                  Find Property
                 </button>
-              )}
+              </div>
             </div>
           </div>
+        </div>
 
-          {cities.length > 0 && (
-            <div className="flex flex-wrap gap-2 mt-4">
-              <span className="text-white/30 text-[10px] uppercase tracking-wider mr-2 py-2">Popular Cities:</span>
-              {cities.slice(0, 12).map(city => (
-                <button
-                  key={city}
-                  onClick={() => { setSearchQuery(city); setVisibleCount(ITEMS_PER_PAGE); }}
-                  className={`px-3 py-1.5 text-[9px] uppercase tracking-wider border transition-all duration-300 ${
-                    searchQuery.toLowerCase() === city.toLowerCase()
-                      ? 'bg-[#C5A059] border-[#C5A059] text-black'
-                      : 'border-white/10 text-white/40 hover:border-[#C5A059]/50 hover:text-white'
-                  }`}
-                >
-                  {city}
-                </button>
-              ))}
-            </div>
-          )}
+        <div className="flex flex-col md:flex-row justify-between items-end gap-6 mb-12">
+          <div className="max-w-2xl">
+            <h2 className="text-4xl md:text-6xl font-serif mb-6 leading-tight">
+              Exclusive <span className="text-[#C5A059] italic">Property</span> Listings
+            </h2>
+            <p className="text-white/60 font-light leading-relaxed">
+              Discover unparalleled luxury across India's most prestigious locations.
+            </p>
+          </div>
         </div>
 
         <div className="flex flex-wrap gap-3 mb-12">
@@ -371,10 +422,6 @@ export default function Properties() {
                         {property.price}
                       </span>
                     </div>
-                  </div>
-                  <div className="flex items-center gap-1.5">
-                    <MapPin size={11} className="text-white/30 shrink-0" />
-                    <p className="text-white/40 text-[10px] uppercase tracking-widest truncate">{property.location}</p>
                   </div>
                   <div className="flex items-center gap-2 pt-1">
                     <span className="px-2 py-0.5 bg-white/5 border border-white/10 text-white/50 text-[9px] uppercase tracking-wider">
@@ -518,10 +565,6 @@ export default function Properties() {
               <div className="flex-1 overflow-y-auto p-8 md:p-12 scrollbar-thin scrollbar-thumb-white/10">
                 <div className="max-w-xl">
                   <div className="mb-8">
-                    <div className="flex items-center gap-2 mb-4">
-                      <MapPin size={14} className="text-[#C5A059]" />
-                      <span className="text-white/40 text-[10px] uppercase tracking-[0.3em]">{selectedProperty.location}</span>
-                    </div>
                     <h2 className="text-3xl md:text-5xl font-serif mb-6 leading-tight">
                       {selectedProperty.title}
                     </h2>
@@ -570,13 +613,6 @@ export default function Properties() {
                     </p>
                   </div>
 
-                  {selectedProperty.contact && (
-                    <div className="mb-8 p-4 bg-white/5 border border-white/10">
-                      <p className="text-white/40 text-[10px] uppercase tracking-widest mb-2">Contact Owner</p>
-                      <p className="text-white text-lg font-serif">{selectedProperty.ownerName}</p>
-                      <p className="text-[#C5A059] text-sm">{selectedProperty.contact}</p>
-                    </div>
-                  )}
 
                   <button className="w-full flex items-center justify-between px-8 py-6 bg-white text-black hover:bg-[#C5A059] hover:text-white transition-all duration-500 group/btn">
                     <span className="text-xs uppercase tracking-[0.4em] font-bold">Schedule A Viewing</span>
