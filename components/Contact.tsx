@@ -23,7 +23,7 @@ export default function Contact() {
 
   const handleEmailSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const mailtoUrl = `mailto:hello@example.com?subject=New Property Inquiry from ${encodeURIComponent(formData.name)}&body=${encodeURIComponent(`Name: ${formData.name}\nEmail: ${formData.email}\nInterest: ${formData.interest}\n\nMessage:\n${formData.message}`)}`;
+    const mailtoUrl = `mailto:Ivigilestates@gmail.com?subject=New Property Inquiry from ${encodeURIComponent(formData.name)}&body=${encodeURIComponent(`Name: ${formData.name}\nEmail: ${formData.email}\nInterest: ${formData.interest}\n\nMessage:\n${formData.message}`)}`;
     window.location.href = mailtoUrl;
   };
 
@@ -72,19 +72,19 @@ export default function Contact() {
                 </div>
                 <div>
                   <p className="text-[10px] uppercase tracking-widest text-white/40 mb-1">Email Us</p>
-                  <p className="text-lg font-serif group-hover:text-[#C5A059] transition-colors duration-300">concierge@ivigilestates.com</p>
+                  <p className="text-lg font-serif group-hover:text-[#C5A059] transition-colors duration-300">Ivigilestates@gmail.com</p>
                 </div>
               </div>
               <div 
                 className="flex items-center gap-6 group cursor-pointer"
-                onClick={() => window.open('https://wa.me/919876543210', '_blank')}
+                onClick={() => window.open('https://wa.me/919799160909', '_blank')}
               >
                 <div className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center group-hover:border-[#C5A059] group-hover:bg-[#C5A059]/10 transition-all duration-300">
                   <Phone size={20} className="text-[#C5A059] group-hover:scale-110 transition-transform duration-300" />
                 </div>
                 <div>
                   <p className="text-[10px] uppercase tracking-widest text-white/40 mb-1">Call Us</p>
-                  <p className="text-lg font-serif group-hover:text-[#C5A059] transition-colors duration-300">+1 (800) IVIGIL-01</p>
+                  <p className="text-lg font-serif group-hover:text-[#C5A059] transition-colors duration-300">+91-9799160909</p>
                 </div>
               </div>
               <div className="flex items-center gap-6 group">
@@ -93,7 +93,7 @@ export default function Contact() {
                 </div>
                 <div>
                   <p className="text-[10px] uppercase tracking-widest text-white/40 mb-1">Visit Us</p>
-                  <p className="text-lg font-serif group-hover:text-[#C5A059] transition-colors duration-300">7th Avenue, Manhattan, NY</p>
+                  <p className="text-base md:text-lg font-serif group-hover:text-[#C5A059] transition-colors duration-300">DLF Phase 3, Sec-24, Gurugram</p>
                 </div>
               </div>
             </div>

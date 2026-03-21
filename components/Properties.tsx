@@ -618,7 +618,7 @@ export default function Properties() {
                     onClick={(e) => {
                       e.stopPropagation();
                       const msg = encodeURIComponent(`Hi, I am interested in viewing the property: ${selectedProperty.title} in ${selectedProperty.location}. Please provide more details.`);
-                      window.open(`https://wa.me/919876543210?text=${msg}`, '_blank');
+                      window.open(`https://wa.me/919799160909?text=${msg}`, '_blank');
                     }}
                     className="w-full flex items-center justify-between px-8 py-6 bg-white text-black hover:bg-[#C5A059] hover:text-white transition-all duration-500 group/btn"
                   >
