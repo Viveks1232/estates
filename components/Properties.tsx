@@ -157,28 +157,7 @@ export default function Properties() {
   const displayProperties = sortedProperties.slice(0, visibleCount);
   const hasMore = visibleCount < sortedProperties.length;
 
-  useEffect(() => {
-    if (!isLoading && displayProperties.length > 0) {
-      const ctx = gsap.context(() => {
-        const cards = gsap.utils.toArray('.property-card');
-        gsap.fromTo(cards,
-          { y: 50, opacity: 0 },
-          {
-            y: 0,
-            opacity: 1,
-            duration: 0.8,
-            stagger: 0.1,
-            ease: 'power3.out',
-            scrollTrigger: {
-              trigger: gridRef.current,
-              start: 'top 85%',
-            }
-          }
-        );
-      }, gridRef);
-      return () => ctx.revert();
-    }
-  }, [displayProperties, isLoading]);
+
 
   const loadMore = useCallback(async () => {
     if (isLoading || !hasMore) return;

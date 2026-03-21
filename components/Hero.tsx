@@ -35,7 +35,7 @@ export default function Hero() {
     const images: HTMLImageElement[] = [];
 
     for (let i = 1; i <= TOTAL_FRAMES; i++) {
-      const img = new Image();
+      const img = new window.Image();
       const paddedIndex = String(i).padStart(3, '0');
       img.src = `/realestate/ezgif-frame-${paddedIndex}.jpg`;
       img.onload = () => {

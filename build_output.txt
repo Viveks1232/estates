@@ -1,0 +1,19 @@
+   Γû▓ Next.js 15.5.13
+
+   Creating an optimized production build ...
+ Γ£ô Compiled successfully in 9.0s
+   Skipping linting
+   Checking validity of types ...
+Failed to compile.
+
+./components/Hero.tsx:38:19
+Type error: Expected 1 arguments, but got 0.
+
+  36 |
+  37 |     for (let i = 1; i <= TOTAL_FRAMES; i++) {
+> 38 |       const img = new Image();
+     |                   ^
+  39 |       const paddedIndex = String(i).padStart(3, '0');
+  40 |       img.src = `/realestate/ezgif-frame-${paddedIndex}.jpg`;
+  41 |       img.onload = () => {
+Next.js build worker exited with code: 1 and signal: null
