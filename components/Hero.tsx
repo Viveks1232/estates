@@ -10,6 +10,11 @@ const TOTAL_FRAMES = 90;
 export default function Hero() {
   const [currentFrame, setCurrentFrame] = useState(1);
   const [isAnimating, setIsAnimating] = useState(true);
+  const [imagesLoaded, setImagesLoaded] = useState(false);
+  const [heroImageIndex, setHeroImageIndex] = useState(0);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const imagesRef = useRef<HTMLImageElement[]>([]);
+  
   const loaderRef = useRef<HTMLDivElement>(null);
   const line1Ref = useRef<HTMLDivElement>(null);
   const line2Ref = useRef<HTMLDivElement>(null);
@@ -18,20 +23,103 @@ export default function Hero() {
   const bgImageRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    const frameInterval = setInterval(() => {
-      setCurrentFrame(prev => {
-        if (prev >= TOTAL_FRAMES) {
-          clearInterval(frameInterval);
-          setIsAnimating(false);
-          return prev;
-        }
-        return prev + 1;
-      });
-    }, 50);
+  const heroImages = [
+    `/realestate/ezgif-frame-${String(TOTAL_FRAMES).padStart(3, '0')}.jpg`,
+    '/realestate/ezgif-frame-001.jpg',
+    '/realestate/ezgif-frame-045.jpg',
+  ];
 
-    return () => clearInterval(frameInterval);
+  // Preload frames for smooth canvas playback
+  useEffect(() => {
+    let loadedCount = 0;
+    const images: HTMLImageElement[] = [];
+
+    for (let i = 1; i <= TOTAL_FRAMES; i++) {
+      const img = new Image();
+      const paddedIndex = String(i).padStart(3, '0');
+      img.src = `/realestate/ezgif-frame-${paddedIndex}.jpg`;
+      img.onload = () => {
+        loadedCount++;
+        if (loadedCount === TOTAL_FRAMES) {
+          setImagesLoaded(true);
+        }
+      };
+      images.push(img);
+    }
+    imagesRef.current = images;
+
+    const timeout = setTimeout(() => {
+      setImagesLoaded(true); // Fallback
+    }, 2000);
+
+    return () => clearTimeout(timeout);
   }, []);
+
+  // Canvas Player Loop
+  useEffect(() => {
+    if (!imagesLoaded) return;
+
+    let frame = 1;
+    let animationFrameId: number;
+    let lastTime = performance.now();
+    const fpsInterval = 1000 / 30; // 30fps
+
+    const draw = (time: number) => {
+      const deltaTime = time - lastTime;
+
+      if (deltaTime >= fpsInterval) {
+        lastTime = time - (deltaTime % fpsInterval);
+
+        const canvas = canvasRef.current;
+        const ctx = canvas?.getContext('2d');
+        const img = imagesRef.current[frame - 1];
+
+        if (canvas && ctx && img && img.complete) {
+          canvas.width = window.innerWidth;
+          canvas.height = window.innerHeight;
+          
+          const canvasAspect = canvas.width / canvas.height;
+          const imgAspect = img.width / img.height;
+          let drawWidth, drawHeight, offsetX, offsetY;
+
+          if (canvasAspect > imgAspect) {
+            drawWidth = canvas.width;
+            drawHeight = canvas.width / imgAspect;
+            offsetX = 0;
+            offsetY = (canvas.height - drawHeight) / 2;
+          } else {
+            drawWidth = canvas.height * imgAspect;
+            drawHeight = canvas.height;
+            offsetX = (canvas.width - drawWidth) / 2;
+            offsetY = 0;
+          }
+
+          ctx.drawImage(img, offsetX, offsetY, drawWidth, drawHeight);
+        }
+
+        if (frame < TOTAL_FRAMES) {
+          frame++;
+          setCurrentFrame(frame);
+        } else {
+          setIsAnimating(false);
+          return;
+        }
+      }
+      animationFrameId = requestAnimationFrame(draw);
+    };
+
+    animationFrameId = requestAnimationFrame(draw);
+    return () => cancelAnimationFrame(animationFrameId);
+  }, [imagesLoaded]);
+
+  // Slideshow Logic
+  useEffect(() => {
+    if (isAnimating) return;
+    const interval = setInterval(() => {
+      setHeroImageIndex((prev) => (prev + 1) % heroImages.length);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, [isAnimating, heroImages.length]);
 
   useEffect(() => {
     if (!isAnimating) {
@@ -87,13 +175,9 @@ export default function Hero() {
             className="fixed inset-0 z-[9999] bg-[#0A0A0A] flex items-center justify-center overflow-hidden"
           >
             <div className="absolute inset-0">
-              <Image
-                src={`/realestate/ezgif-frame-${frameNumber}.jpg`}
-                alt="Loading"
-                fill
-                className="object-cover opacity-60"
-                priority
-                unoptimized
+              <canvas
+                ref={canvasRef}
+                className={`w-full h-full object-cover transition-opacity duration-300 ${imagesLoaded ? 'opacity-60' : 'opacity-0'}`}
               />
               <div className="absolute inset-0 bg-black/50" />
             </div>
@@ -116,14 +200,25 @@ export default function Hero() {
 
       <section ref={bgRef} className="relative h-screen w-full overflow-hidden flex items-center justify-center bg-[#0A0A0A]">
         <div ref={bgImageRef} className="absolute inset-0 z-0 origin-center w-full h-full scale-100">
-          <Image
-            src={`/realestate/ezgif-frame-${String(TOTAL_FRAMES).padStart(3, '0')}.jpg`}
-            alt="IVIGIL ESTATES"
-            fill
-            className="object-cover brightness-[0.35]"
-            priority
-            unoptimized
-          />
+          <AnimatePresence mode="popLayout">
+            <motion.div
+              key={heroImageIndex}
+              initial={{ opacity: 0, scale: 1.05 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 1.5, ease: 'easeInOut' }}
+              className="absolute inset-0"
+            >
+              <Image
+                src={heroImages[heroImageIndex]}
+                alt="IVIGIL ESTATES"
+                fill
+                className="object-cover brightness-[0.35]"
+                priority
+                unoptimized
+              />
+            </motion.div>
+          </AnimatePresence>
           <div className="absolute inset-0 bg-gradient-to-b from-[#0A0A0A]/50 via-transparent to-[#0A0A0A]" />
           <div className="absolute inset-0 bg-gradient-to-r from-[#0A0A0A]/80 via-transparent to-[#0A0A0A]/80" />
         </div>

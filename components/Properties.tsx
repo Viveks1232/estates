@@ -200,16 +200,7 @@ export default function Properties() {
 
   const filters = ['All', 'Rent', 'Sale', 'Residential', 'Commercial'];
 
-  if (isLoading && allProperties.length === 0) {
-    return (
-      <section id="properties" className="py-24 px-6 bg-[#0A0A0A] min-h-[60vh] flex items-center justify-center">
-        <div className="flex flex-col items-center gap-4">
-          <Loader2 className="animate-spin text-[#C5A059]" size={48} />
-          <p className="text-[10px] uppercase tracking-[0.4em] text-white/40">Loading properties from Google Sheet...</p>
-        </div>
-      </section>
-    );
-  }
+
 
   return (
     <section id="properties" className="py-24 px-6 bg-[#0A0A0A]">
@@ -426,16 +417,7 @@ export default function Properties() {
         </div>
 
         <div ref={ref} className="mt-20 flex flex-col items-center justify-center gap-4">
-          {isLoading && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              className="flex flex-col items-center gap-4"
-            >
-              <Loader2 className="animate-spin text-[#C5A059]" size={32} />
-              <p className="text-[10px] uppercase tracking-[0.4em] text-white/40">Loading more properties...</p>
-            </motion.div>
-          )}
+
           {!hasMore && sortedProperties.length > 0 && (
             <p className="text-[10px] uppercase tracking-[0.4em] text-white/20 border-t border-white/5 pt-8 w-full text-center">
               You have viewed all {sortedProperties.length} properties
