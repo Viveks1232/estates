@@ -58,7 +58,7 @@ export default function Services() {
   }, []);
 
   return (
-    <section id="services" className="py-24 px-6 bg-[#0A0A0A]" ref={containerRef}>
+    <section id="services" className="py-24 px-6 bg-background" ref={containerRef}>
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-20 relative">
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 bg-[#C5A059]/10 blur-[50px] rounded-full pointer-events-none" />
@@ -71,7 +71,7 @@ export default function Services() {
             <div
               key={service.title}
               ref={(el) => { cardsRef.current[index] = el; }}
-              className="p-10 border border-white/5 hover:border-[#C5A059]/30 transition-all duration-500 group bg-[#0F0F0F] relative overflow-hidden"
+              className="p-10 border border-border-custom hover:border-accent/30 transition-all duration-500 group bg-card relative overflow-hidden"
             >
               <div className="absolute inset-0 bg-gradient-to-br from-[#C5A059]/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               <div className="relative z-10">
@@ -79,7 +79,7 @@ export default function Services() {
                   {service.icon}
                 </div>
                 <h3 className="text-xl font-serif mb-4 group-hover:text-[#C5A059] transition-colors">{service.title}</h3>
-                <p className="text-white/40 text-sm leading-relaxed font-light">
+                <p className="text-muted-custom text-sm leading-relaxed font-light">
                   {service.description}
                 </p>
               </div>

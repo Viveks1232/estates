@@ -3,12 +3,29 @@
 @theme {
   --font-sans: var(--font-sans);
   --font-serif: var(--font-serif);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-accent: var(--accent);
+  --color-card: var(--card-bg);
+  --color-border-custom: var(--border-color);
+  --color-muted-custom: var(--text-muted);
 }
 
 :root {
+  --background: #FFFFFF;
+  --foreground: #0A0A0A;
+  --accent: #C5A059;
+  --card-bg: #F8F8F8;
+  --border-color: rgba(0, 0, 0, 0.1);
+  --text-muted: rgba(0, 0, 0, 0.6);
+}
+
+[data-theme='dark'] {
   --background: #0A0A0A;
   --foreground: #FFFFFF;
-  --accent: #C5A059; /* Orange - matching reference site */
+  --card-bg: #111111;
+  --border-color: rgba(255, 255, 255, 0.1);
+  --text-muted: rgba(255, 255, 255, 0.6);
 }
 
 body {

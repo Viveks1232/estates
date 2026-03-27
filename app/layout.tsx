@@ -17,6 +17,8 @@ export const metadata: Metadata = {
   description: 'Premium real estate services for luxury properties and elite investments.',
 };
 
+import { Providers } from '@/components/Providers';
+
 export default function RootLayout({
   children,
 }: {
@@ -24,8 +26,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${inter.variable} ${playfair.variable}`} suppressHydrationWarning>
-      <body className="bg-[#0A0A0A] text-white antialiased" suppressHydrationWarning>
-        {children}
+      <body className="bg-background text-foreground antialiased" suppressHydrationWarning>
+        <Providers>
+          {children}
+        </Providers>
       </body>
     </html>
   );

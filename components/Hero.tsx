@@ -24,7 +24,8 @@ export default function Hero() {
   const contentRef = useRef<HTMLDivElement>(null);
 
   const heroImages = [
-    '/hero-custom.jpg',
+    '/hero-main.jpg',
+    '/hero-apartment.jpg',
     '/realestate/ezgif-frame-001.jpg',
     '/realestate/ezgif-frame-045.jpg',
   ];
@@ -172,7 +173,7 @@ export default function Hero() {
             initial={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.5 }}
-            className="fixed inset-0 z-[9999] bg-[#0A0A0A] flex items-center justify-center overflow-hidden"
+            className="fixed inset-0 z-[9999] bg-background flex items-center justify-center overflow-hidden"
           >
             <div className="absolute inset-0">
               <canvas
@@ -188,7 +189,7 @@ export default function Hero() {
                   initial={{ y: '100%', opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
                   transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-                  className="text-white text-2xl md:text-4xl font-serif tracking-[0.2em]"
+                  className="text-foreground text-2xl md:text-4xl font-serif tracking-[0.2em]"
                 >
                   IVIGIL ESTATES
                 </motion.div>
@@ -198,7 +199,7 @@ export default function Hero() {
         )}
       </AnimatePresence>
 
-      <section ref={bgRef} className="relative h-screen w-full overflow-hidden flex items-center justify-center bg-[#0A0A0A]">
+      <section ref={bgRef} className="relative h-screen w-full overflow-hidden flex items-center justify-center bg-background">
         <div ref={bgImageRef} className="absolute inset-0 z-0 origin-center w-full h-full scale-100">
           <AnimatePresence mode="popLayout">
             <motion.div
@@ -219,33 +220,33 @@ export default function Hero() {
               />
             </motion.div>
           </AnimatePresence>
-          <div className="absolute inset-0 bg-gradient-to-b from-[#0A0A0A]/50 via-transparent to-[#0A0A0A]" />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#0A0A0A]/80 via-transparent to-[#0A0A0A]/80" />
+          <div className="absolute inset-0 bg-gradient-to-b from-background/50 via-transparent to-background" />
+          <div className="absolute inset-0 bg-gradient-to-r from-background/80 via-transparent to-background/80" />
         </div>
 
         <div ref={contentRef} className="relative z-10 text-center px-6 max-w-5xl flex flex-col items-center">
             <div className="overflow-hidden mb-6">
-              <span className="animate-in text-[#C5A059] text-xs md:text-sm uppercase tracking-[0.5em] block font-sans">
+              <span className="animate-in text-accent text-xs md:text-sm uppercase tracking-[0.5em] block font-sans">
                 Redefining Luxury Living
               </span>
             </div>
 
             <div className="mb-8 relative">
-              <div className="absolute -inset-10 bg-[#C5A059]/20 blur-[100px] rounded-full pointer-events-none" />
+              <div className="absolute -inset-10 bg-accent/20 blur-[100px] rounded-full pointer-events-none" />
               <div className="overflow-hidden pb-2 relative z-10">
-                <h1 className="animate-in text-5xl md:text-8xl font-serif leading-tight">
+                <h1 className="animate-in text-5xl md:text-8xl font-serif leading-tight text-foreground">
                   The Art of
                 </h1>
               </div>
               <div className="overflow-hidden pb-4">
-                <h1 className="animate-in text-5xl md:text-8xl font-serif leading-tight italic">
+                <h1 className="animate-in text-5xl md:text-8xl font-serif leading-tight italic text-foreground">
                   Exquisite Estates
                 </h1>
               </div>
             </div>
 
             <div className="overflow-hidden mb-12 max-w-2xl mx-auto p-1">
-              <p className="animate-in text-white/60 text-sm md:text-lg font-light tracking-wide leading-relaxed font-sans">
+              <p className="animate-in text-muted-custom text-sm md:text-lg font-light tracking-wide leading-relaxed font-sans">
                 Experience unparalleled elegance and sophistication with IVIGIL ESTATES.
                 We curate the world&apos;s most prestigious properties for those who demand nothing but the best.
               </p>
@@ -254,13 +255,13 @@ export default function Hero() {
             <div className="animate-in flex flex-col md:flex-row items-center justify-center gap-6">
               <button
                 type="button"
-                className="group relative px-10 py-4 bg-[#C5A059] text-[#0A0A0A] text-xs uppercase tracking-[0.3em] font-bold overflow-hidden hover:bg-white transition-all duration-500 w-full md:w-auto font-sans"
+                className="group relative px-10 py-4 bg-accent text-background text-xs uppercase tracking-[0.3em] font-bold overflow-hidden hover:bg-foreground hover:text-background transition-all duration-500 w-full md:w-auto font-sans"
               >
                 <span className="relative z-10">View Collection</span>
               </button>
               <button
                 type="button"
-                className="group px-10 py-4 border border-[#C5A059]/40 text-white text-xs uppercase tracking-[0.3em] font-bold hover:border-white transition-all duration-500 w-full md:w-auto font-sans relative overflow-hidden"
+                className="group px-10 py-4 border border-accent/40 text-foreground text-xs uppercase tracking-[0.3em] font-bold hover:border-foreground transition-all duration-500 w-full md:w-auto font-sans relative overflow-hidden"
               >
                 <span className="relative z-10">Our Story</span>
               </button>
@@ -268,20 +269,20 @@ export default function Hero() {
           </div>
 
         <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4">
-          <span className="animate-in text-[10px] uppercase tracking-[0.3em] text-white/40 rotate-90 mb-8">Scroll</span>
-          <div className="w-[1px] h-16 bg-gradient-to-b from-[#C5A059] to-transparent" />
+          <span className="animate-in text-[10px] uppercase tracking-[0.3em] text-muted-custom rotate-90 mb-8">Scroll</span>
+          <div className="w-[1px] h-16 bg-gradient-to-b from-accent to-transparent" />
         </div>
       </section>
 
       <div
         ref={loaderRef}
-        className="fixed inset-0 z-[9998] bg-[#0A0A0A] flex items-center justify-center pointer-events-none"
+        className="fixed inset-0 z-[9998] bg-background flex items-center justify-center pointer-events-none"
         style={{ display: 'flex' }}
       >
         <div className="text-center">
           <div className="overflow-hidden mb-4">
             <div
-              className="text-white/90 text-2xl md:text-4xl font-serif tracking-[0.2em]"
+              className="text-foreground/90 text-2xl md:text-4xl font-serif tracking-[0.2em]"
             >
               IVIGIL ESTATES
             </div>

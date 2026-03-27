@@ -116,7 +116,7 @@ export default function Splash() {
           initial={{ opacity: 1 }}
           exit={{ opacity: 0, scale: 1.05 }}
           transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
-          className="fixed inset-0 z-[100] bg-[#0A0A0A] flex flex-col items-center justify-center overflow-hidden"
+          className="fixed inset-0 z-[100] bg-background flex flex-col items-center justify-center overflow-hidden"
           onMouseMove={handleMouseMove}
         >
           {/* Canvas for the fast frame sequence with Parallax */}
@@ -135,7 +135,7 @@ export default function Splash() {
           </motion.div>
           
           {/* Gradient Overlay for better text readability */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-black/40 z-10 pointer-events-none" />
+          <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-background/20 to-background/40 z-10 pointer-events-none" />
 
           {/* Interactive UI Overlay */}
           <div className="relative z-20 flex flex-col items-center justify-center h-full w-full pointer-events-none">
@@ -145,16 +145,16 @@ export default function Splash() {
               transition={{ duration: 1, delay: 0.2 }}
               className="flex flex-col items-center gap-8 pointer-events-auto mt-[40vh]"
             >
-              <h1 className="text-white text-4xl md:text-6xl font-serif text-center drop-shadow-2xl font-light">
-                Discover Luxury <br /> <span className="italic text-[#C5A059]">Estates</span>
+              <h1 className="text-foreground text-4xl md:text-6xl font-serif text-center drop-shadow-2xl font-light">
+                Discover Luxury <br /> <span className="italic text-accent">Estates</span>
               </h1>
               
               <button
                 onClick={() => setIsVisible(false)}
-                className="group relative px-8 py-4 bg-transparent overflow-hidden border border-white/30 hover:border-[#C5A059] transition-colors duration-500 cursor-pointer"
+                className="group relative px-8 py-4 bg-transparent overflow-hidden border border-foreground/30 hover:border-accent transition-colors duration-500 cursor-pointer"
               >
-                <div className="absolute inset-0 bg-[#C5A059] translate-y-[100%] group-hover:translate-y-0 transition-transform duration-500 ease-in-out" />
-                <span className="relative z-10 text-white text-[11px] uppercase tracking-[0.4em] font-bold group-hover:text-black transition-colors duration-500">
+                <div className="absolute inset-0 bg-accent translate-y-[100%] group-hover:translate-y-0 transition-transform duration-500 ease-in-out" />
+                <span className="relative z-10 text-foreground text-[11px] uppercase tracking-[0.4em] font-bold group-hover:text-background transition-colors duration-500">
                   Enter Experience
                 </span>
               </button>
