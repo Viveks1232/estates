@@ -38,6 +38,25 @@ function convertImageLink(url: string): string {
   return '';
 }
 
+function safeParseCSVLine(line: string): string[] {
+  const result: string[] = [];
+  let current = '';
+  let inQuotes = false;
+  for (let i = 0; i < line.length; i++) {
+    const char = line[i];
+    if (char === '"') {
+      inQuotes = !inQuotes;
+    } else if (char === ',' && !inQuotes) {
+      result.push(current.trim());
+      current = '';
+    } else {
+      current += char;
+    }
+  }
+  result.push(current.trim());
+  return result;
+}
+
 function parseCSV(csv: string): Property[] {
   const lines = csv.split('\n');
   const properties: Property[] = [];
@@ -46,7 +65,7 @@ function parseCSV(csv: string): Property[] {
     const line = lines[i].trim();
     if (!line || line.startsWith(',,,,,,,,,,,,,,,,')) continue;
     
-    const cols = line.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/).map(c => c.replace(/"/g, '').trim());
+    const cols = safeParseCSVLine(line);
     
     if (cols.length < 15) continue;
     
